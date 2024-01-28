@@ -1,0 +1,49 @@
+from pyb import Robot
+from pyb import Switch
+
+robot = Robot()
+switch = Switch()
+
+def move_forward(speed):
+    robot.forward(speed)
+
+def move_backward(speed):
+    robot.backward(speed)
+
+def turn_left(speed):
+    robot.left(speed)
+
+def turn_right(speed):
+    robot.right(speed)
+
+def stop_robot():
+    robot.stop()
+
+def main():
+    while True:
+        # Sprawdź czy przycisk "A" na Codey Rocky jest naciśnięty
+        if switch():
+            move_forward(100)  # Poruszaj się do przodu z prędkością 100
+        else:
+            stop_robot()  # Zatrzymaj robota
+            
+        # Sprawdź czy czujnik dotyku na Codey Rocky jest aktywny (naciśnięty)
+        if robot.touch_sensor.is_pressed():
+            move_backward(100)  # Jeśli czujnik dotyku jest aktywny, poruszaj się do tyłu z prędkością 100
+        else:
+            stop_robot()  # W innym przypadku zatrzymaj robota
+
+        # Sprawdź czy przycisk "B" na Codey Rocky jest naciśnięty
+        if robot.button_b.is_pressed():
+            turn_left(100)  # Jeśli przycisk "B" jest naciśnięty, obróć się w lewo z prędkością 100
+        else:
+            stop_robot()  # W innym przypadku zatrzymaj robota
+
+        # Sprawdź czy przycisk "C" na Codey Rocky jest naciśnięty
+        if robot.button_c.is_pressed():
+            turn_right(100)  # Jeśli przycisk "C" jest naciśnięty, obróć się w prawo z prędkością 100
+        else:
+            stop_robot()  # W innym przypadku zatrzymaj robota
+
+if __name__ == "__main__":
+    main()
